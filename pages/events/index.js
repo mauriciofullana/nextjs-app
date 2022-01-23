@@ -1,9 +1,10 @@
+import EventList from "../../components/events/EventList";
+import { getAllEvents } from "../../dummy-data";
+
 const EventsPage = () => {
-  return (
-    <div>
-      <h1>Events page</h1>
-    </div>
-  );
+  const events = getAllEvents();
+
+  return <EventList items={events} />;
 };
 
 export default EventsPage;
