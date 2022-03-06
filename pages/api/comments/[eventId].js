@@ -38,7 +38,12 @@ async function handler(req, res) {
   }
 
   if (req.method === 'GET') {
-    const comments = await getAllDocuments(client, 'comments', { _id: -1 });
+    const comments = await getAllDocuments(
+      client,
+      'comments',
+      { _id: -1 },
+      { eventId: eventId }
+    );
 
     res.status(200).json({ comments });
   }
