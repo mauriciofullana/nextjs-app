@@ -1,4 +1,5 @@
 import { MongoClient } from 'mongodb';
+import { connectDatabase, insertDocument } from '../../helpers/db-util';
 
 async function handler(req, res) {
   if (req.method === 'POST') {
@@ -10,11 +11,8 @@ async function handler(req, res) {
     }
 
     // adding email to mongodb database
-    const client = await MongoClient.connect(
-      'mongodb+srv://next-user:ZiJ1Ui22z9k17iTZ@cluster0.j9t0v.mongodb.net/events?retryWrites=true&w=majority'
-    );
-    const db = client.db();
-    await db.collection('newsletter').insertOne({ email: userEmail });
+    const client = await connectDatabase();
+    await insertDocument(client, 'newsletter', { email: userEmail });
     client.close();
 
     res.status(201).json({ message: 'Signed up' });
